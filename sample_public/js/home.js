@@ -5,7 +5,11 @@ const nameInput = document.getElementById("name-input");
 const usersList = document.getElementById("users-list");
 const joinChatButton = document.getElementById("join-chat");
 const sendMsgButton = document.getElementById("send-msg");
-const socket = new WebSocket("ws://localhost:3000");
+const socket = new WebSocket(
+    location.protocol === "https:"
+        ? `wss://${location.host}`
+        : `ws://${location.host}`
+);
 const userNamesList = []
 joinChatButton.onclick = joinChat;
 sendMsgButton.onclick = sendMessage;
