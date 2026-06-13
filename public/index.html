@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real Time Dashboard</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 40px;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin: 10px;
+      width: 200px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<h1>Live Dashboard</h1>
+
+<div class="card">
+  <h3>CPU</h3>
+  <h2 id="cpu">0%</h2>
+</div>
+
+<div class="card">
+  <h3>Memory</h3>
+  <h2 id="memory">0%</h2>
+</div>
+
+<div class="card">
+  <h3>Users</h3>
+  <h2 id="users">0</h2>
+</div>
+
+<div class="card">
+  <h3>Time</h3>
+  <h2 id="time">--</h2>
+</div>
+
+<button onclick="sendMessage()">
+  Send Message To Server
+</button>
+
+<script>
+
+const socket = new WebSocket(
+  "ws://localhost:3000"
+);
+
+socket.onopen = () => {
+  console.log("Connected");
+};
+
+socket.onmessage = (event) => {
+
+  const data = JSON.parse(event.data);
+
+  document.getElementById("cpu").innerText =
+    data.cpu + "%";
+
+  document.getElementById("memory").innerText =
+    data.memory + "%";
+
+  document.getElementById("users").innerText =
+    data.activeUsers;
+
+  document.getElementById("time").innerText =
+    data.time;
+};
+
+function sendMessage() {
+  socket.send("Hello from Browser");
+}
+
+</script>
+
+</body>
+</html>

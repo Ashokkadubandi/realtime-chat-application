@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Web sockets</title>
+</head>
+<body>
+    <div id="login-page">
+        <h2>Enter Your Name To Join Chat</h2>
+        <input id="name-input"/>
+        <input type="button" id="join-chat" value="Join" onclick="joinChat()"/>
+    </div>
+    <div id="chat-page" class="chat-home-layout" style="display: none;">
+        <h3 id="online-users"></h3>
+        <div class="chat-home-container">
+            <div class="chat-container">
+                <div id="messages"></div>
+                <div class="input-card">
+                    <input placeholder="Send Message" id="inp"/>
+                    <input type="button" value="Send" id="send-msg" onclick="sendMessage()"/>
+                </div>
+            </div>
+            <div class="users-container">
+                <h3>Online Users</h3>
+                <div id="users-list"></div>
+            </div>
+        </div> 
+    </div>
+    <script src="js/home.js"></script>
+</body>
+</html>
