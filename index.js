@@ -3,6 +3,7 @@ const http = require("http");
 const WebSocket = require("ws");
 const path = require("path");
 const port = process.env.PORT || 3000;
+const crypto = require("crypto")
 
 const app = express();
 
@@ -26,7 +27,10 @@ wss.on("connection", (ws) => {
         console.log(data,"Data from browser");
         if(data.type === "JOIN" && !ws.isJoined){
             ws.isJoined = true;
-            userDb.push(data.username);
+            const userDetails = {username:data.username,userId:crypto.randomUUID()}
+            ws.userId = userDetails.userId
+            ws.username = userDetails.username
+            userDb.push(userDetails);
             broadcastOnlineUsers();
             return 
         }
@@ -39,6 +43,7 @@ wss.on("connection", (ws) => {
 
     ws.on("close", () => {
         if(ws.isJoined){
+            userDb = userDb.filter(user => user.userId !== ws.userId)
             broadcastOnlineUsers();
             console.log("Client Disconnected");
         }

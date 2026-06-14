@@ -8,12 +8,20 @@
 </head>
 <body>
     <div id="login-page">
-        <h2>Enter Your Name To Join Chat</h2>
-        <input id="name-input"/>
-        <input type="button" id="join-chat" value="Join" onclick="joinChat()"/>
+        <div class="login-card">
+                <h1>Welcome To Group Chat App</h1>
+                <p>Join the chat by entering your name below</p>
+                <input type="text" placeholder="Enter Your Name" id="name-input"/>
+                <input type="button" value="Join Chat" id="join-chat" onclick="joinChat()"/>
+        </div>
     </div>
     <div id="chat-page" class="chat-home-layout" style="display: none;">
-        <h3 id="online-users"></h3>
+        <div class="fixed-header">
+            <h3 id="online-users"></h3>
+            <div class="navigatoin">
+                <button id="menu">Menu</button>
+            </div>
+        </div>
         <div class="chat-home-container">
             <div class="chat-container">
                 <div id="messages"></div>

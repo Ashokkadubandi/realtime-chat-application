@@ -5,6 +5,7 @@ const nameInput = document.getElementById("name-input");
 const usersList = document.getElementById("users-list");
 const joinChatButton = document.getElementById("join-chat");
 const sendMsgButton = document.getElementById("send-msg");
+const menuButton = document.getElementById("menu");
 const socket = new WebSocket(
     location.protocol === "https:"
         ? `wss://${location.host}`
@@ -13,6 +14,13 @@ const socket = new WebSocket(
 const userNamesList = []
 joinChatButton.onclick = joinChat;
 sendMsgButton.onclick = sendMessage;
+menuButton.onclick = () => {
+    console.log("triggred")
+    const usersContainer = document.querySelector(".users-container");
+    menuButton.textContent = usersContainer.style.left === "0px" ? "Menu" : "Close";
+    usersContainer.style.left = usersContainer.style.left === "0px" ? "-500px" : "0px";
+    usersContainer.style.right = usersContainer.style.right === "0px" ? "100%" : "0px";
+};
 
 function joinChat() {
     const name = nameInput.value;
@@ -28,6 +36,19 @@ input.addEventListener("keypress", (e) => {
         sendMessage();
     }
 });
+
+function showWelcomeMessage() {
+    if (messagesDiv.children.length === 0) {
+        messagesDiv.innerHTML = `
+            <div style="width:100%;height:100%;display:flex;justify-content:center;
+            align-items:center;text-align:center;">
+                👋 Welcome to the Group Chat! Start the conversation.
+            </div>
+        `;
+    }
+}
+
+showWelcomeMessage();
 
 function createUserMessage(message, isUser = null) {
     const messageDiv = document.createElement("div");
@@ -54,24 +75,27 @@ socket.addEventListener('message', (event) => {
         return;
     }
     if (data.type === "CHAT") {
+        
         createUserMessage(`${data.username}: ${data.message}`);
     }
 });
 
 function updateUserList(userDb) {
+    const {username} = userDb
     usersList.innerHTML = "";
-    userDb.forEach((name) => {
-        console.log(name,"Username");
+    userDb.forEach((ob) => {
+        const {username} = ob
+        console.log(username,"Username");
         const userElementCard = document.createElement("div");
         userElementCard.classList.add("users-card");
         const userElement = document.createElement("p");
         const userElementLogo = document.createElement("div");
         userElementLogo.classList.add("users-logo-chip")
         const userElementLogoAlpha = document.createElement("p")
-        userElementLogoAlpha.textContent = name[0].toUpperCase();
+        userElementLogoAlpha.textContent = username[0].toUpperCase();
         userElementLogo.appendChild(userElementLogoAlpha);
 
-        userElement.textContent = name;
+        userElement.textContent = username;
         userElementCard.appendChild(userElementLogo);
         userElementCard.appendChild(userElement);
         usersList.appendChild(userElementCard);

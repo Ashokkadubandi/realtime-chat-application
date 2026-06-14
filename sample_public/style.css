@@ -7,16 +7,75 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 !important;
 }
 
+#login-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: radial-gradient(rgb(244, 244, 255),rgb(231, 231, 231));
+}
+
+.login-card {
+    background-image: radial-gradient(rgb(255, 255, 255), rgb(238, 238, 238));
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px rgb(223, 220, 220);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+ }
+
+ .login-card h1 {
+    color: rgb(77, 227, 247);
+    text-shadow: 2px 2px 4px rgb(253, 221, 221);
+    font-size: 2rem;
+    font-weight: bold;
+ }
+
+ .login-card input[type="text"] {
+    
+    padding: 10px;
+    border: 1px solid rgb(223, 220, 220);
+    border-radius: 4px;
+ }
+
+ .login-card input[type="button"] {
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: rgb(77, 227, 247);
+ }
+
+
  .chat-home-layout {
     padding-left: 10px;
+    padding-right: 10px;
     height: 100vh;
+    position: relative;
     margin: 0;
  }
+
+.fixed-header{
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigatoin {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+}
 
  .chat-home-container {
      display: flex;
      gap: 20px;
-     height: 95%;
+     height: 90%;
  }
 
  .users-container {
@@ -118,9 +177,6 @@ h1, h2, h3, h4, h5, h6 {
     background: rgb(50, 200, 220);
 }
 
- 
-
-
  .users-card{
     background-color: rgb(255, 205, 96);
     display: flex;
@@ -140,4 +196,23 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: center;
     align-items: center;
+ }
+
+
+ /* Media Query for responsiveness */
+
+  @media(max-width:636px){
+    .users-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -500px;
+        transition: 0.3s ease-in-out;
+    }
+    .navigatoin {
+        display: block;
+    }
+     .chat-container {
+        flex: 1;
+     }
  }
